@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+require('dotenv').config()
+
+const request = require("request-promise")
+
+const {
+  TWEET_URL,
+  AUTH_TOKEN
+} = process.env // eslint-disable-line no-process-env
+
+const options = {
+  method: 'POST',
+  url: TWEET_URL,
+  headers: {
+    'x-admin-token': AUTH_TOKEN
+  },
+  body: { dryRun: true },
+  json: true 
+}
+
+request(options)
+.then(res => {
+  console.log('Tweeted', (new Date()).toISOString())
+})
+.catch(e => {
+  console.log('Error', e)
+})
+
+
