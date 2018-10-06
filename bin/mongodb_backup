@@ -1,0 +1,11 @@
+#!/bin/sh
+
+echo "Backing up mongo"
+
+echo "mongodump ...."
+
+echo "Uploading to cloud"
+rclone lsd remote:
+
+echo "Done"
+
