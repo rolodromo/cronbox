@@ -14,6 +14,8 @@ RUN apk update \
     && rm -r /tmp/rclone*
 
 RUN mkdir /app
+RUN mkdir -p /backup/mongodb
+
 WORKDIR /app
 COPY . .
 RUN npm ci

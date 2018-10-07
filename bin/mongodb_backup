@@ -1,11 +1,24 @@
 #!/bin/sh
 
-echo "Backing up mongo"
+DATE=`date +%Y%m%d`
+BACKUP_DIR=/tmp/backup/mongodb_$DATE
+BACKUP_FILE=/tmp/backup/mongodump_$DATE.tgz
+REMOTE_DIR=/rolodromo_backup/
 
-echo "mongodump ...."
+mkdir -p $BACKUP_DIR
+
+echo "Backing up mongo"
+mongodump  -u $MONGO_USER -p $MONGO_PASS --host $MONGO_HOST --port $MONGO_PORT -d $MONGO_DB --out $BACKUP_DIR
+
+echo "Compressing"
+cd $BACKUP_DIR 
+tar -czvf $BACKUP_FILE .
 
 echo "Uploading to cloud"
-rclone lsd remote:
+rclone copy $BACKUP_FILE remote:$REMOTE_DIR
+
+echo "Cleaning"
+rm /tmp/backup/mongodb_$DATE -rf
 
 echo "Done"
 
