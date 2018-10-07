@@ -5,9 +5,13 @@ ENV RCLONE_ARCH=amd64
 ENV RCLONE_CONFIG_REMOTE_TYPE=
 ENV RCLONE_CONFIG_REMOTE_TOKEN=
 
-RUN apk update \
-    && apk -U add mongodb-tools ca-certificates fuse wget tzdata \
-    && cd /tmp \
+RUN apk update && apk upgrade && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
+
+RUN apk add --no-cache libressl mongodb-tools@edge ca-certificates fuse wget
+
+RUN cd /tmp \
     && wget -q http://downloads.rclone.org/rclone-${RCLONE_VERSION}-linux-${RCLONE_ARCH}.zip \
     && unzip /tmp/rclone-${RCLONE_VERSION}-linux-${RCLONE_ARCH}.zip \
     && mv /tmp/rclone-*-linux-${RCLONE_ARCH}/rclone /usr/bin \
