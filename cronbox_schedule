@@ -1,2 +1,3 @@
 0 */2 * * * roleandobot_tweet
+30 15,21 * * * roleandobot_tweet_storycubes
 0 4 */1 * * mongodb_backup

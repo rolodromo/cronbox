@@ -4,13 +4,13 @@ require('dotenv').config()
 const request = require("request-promise")
 
 const {
-  TWEET_URL,
+  TWEET_STORYCUBES_URL,
   AUTH_TOKEN
 } = process.env // eslint-disable-line no-process-env
 
 const options = {
   method: 'POST',
-  url: TWEET_URL,
+  url: TWEET_STORYCUBES_URL,
   headers: {
     'x-admin-token': AUTH_TOKEN
   },
@@ -19,7 +19,7 @@ const options = {
 
 request(options)
 .then(res => {
-  console.log('Tweeted', (new Date()).toISOString())
+  console.log('Tweeted a #StoryCube', (new Date()).toISOString())
 })
 .catch(e => {
   console.log('Error', e)

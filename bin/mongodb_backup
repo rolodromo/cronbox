@@ -8,10 +8,15 @@ REMOTE_DIR=/rolodromo_backup/
 mkdir -p $BACKUP_DIR
 
 echo "Backing up mongo"
-mongodump  -u $MONGO_USER -p $MONGO_PASS --host $MONGO_HOST --port $MONGO_PORT -d $MONGO_DB --out $BACKUP_DIR
+mongodump  -u $MONGO_USER \
+  -p $MONGO_PASS \
+  --host $MONGO_HOST \
+  --port $MONGO_PORT \
+  -d $MONGO_DB \
+  --out $BACKUP_DIR
 
 echo "Compressing"
-cd $BACKUP_DIR 
+cd $BACKUP_DIR
 tar -czvf $BACKUP_FILE .
 
 echo "Uploading to cloud"
